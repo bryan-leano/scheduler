@@ -24,10 +24,10 @@
                         <Label text="Address" GridPane.rowIndex="2" />
                         <Label text="Phone Number" GridPane.rowIndex="3" />
 
-                        <TextField fx:id="partIdTxt" GridPane.columnIndex="1" />
+                        <TextField fx:id="custIdTxt" GridPane.columnIndex="1" />
                         <TextField fx:id="nameTxt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="invTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="priceCostTxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="addressTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="phoneTxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
 
                     </children>
