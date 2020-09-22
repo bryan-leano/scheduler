@@ -17,8 +17,27 @@ import java.util.ResourceBundle;
 
 public class LoginScreenController {
 
-    @FXML
-    void onActionLogin(ActionEvent event) {
+    Stage stage;
+    Parent scene;
+
+    @FXML private TextField usernameTxt;
+    @FXML private PasswordField passwordTxt;
+
+    @FXML void onActionClear(ActionEvent event) {
+        usernameTxt.clear();
+        passwordTxt.clear();
+    }
+
+    @FXML void onActionLogin(ActionEvent event) throws IOException {
+        String usernameEntry = usernameTxt.getText();
+        String passwordEntry = passwordTxt.getText();
+
+        if (usernameEntry.equals("test") && passwordEntry.equals("test")) {
+            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
 
     }
 }

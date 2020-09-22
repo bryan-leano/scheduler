@@ -8,15 +8,15 @@
        <DialogPane contentText="APPOINTMENT SCHEDULER" layoutX="200.0" layoutY="25.0" prefHeight="57.0" prefWidth="188.0" />
       <VBox layoutX="148.0" layoutY="120.0" prefHeight="157.0" prefWidth="281.0">
          <children>
-            <TextField prefHeight="27.0" prefWidth="451.0" />
+            <TextField fx:id="usernameTxt" prefHeight="27.0" prefWidth="451.0" />
             <DialogPane contentText="Username" prefHeight="20.0" prefWidth="281.0" />
-            <TextField />
+            <PasswordField fx:id="passwordTxt" />
             <DialogPane contentText="Password" />
          </children>
       </VBox>
       <HBox layoutX="151.0" layoutY="307.0" prefHeight="57.0" prefWidth="281.0">
          <children>
-            <Button mnemonicParsing="false" text="Clear" />
+            <Button mnemonicParsing="false" onAction="#onActionClear" text="Clear" />
              <Pane HBox.hgrow="ALWAYS" />
             <Button mnemonicParsing="false" onAction="#onActionLogin" text="Login" />
          </children>

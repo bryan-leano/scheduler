@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.MainScreenController">
+
+    <children>
+        <VBox alignment="BOTTOM_CENTER" layoutY="184.0" prefHeight="216.0" prefWidth="1000.0" spacing="10.0">
+            <children>
+
+                <TableView fx:id="appointmentTableView" layoutX="10.0" layoutY="110.0" maxWidth="-Infinity" prefHeight="200.0" prefWidth="840.0">
+                    <columns>
+                        <TableColumn fx:id="apptIdCol" prefWidth="120.0" text="Appt ID" />
+                        <TableColumn fx:id="customerCol" prefWidth="120.0" text="Customer" />
+                        <TableColumn fx:id="titleCol" prefWidth="120.0" text="Title" />
+                        <TableColumn fx:id="typeCol" prefWidth="120.0" text="Type" />
+                        <TableColumn fx:id="dateCol" prefWidth="120.0" text="Date" />
+                        <TableColumn fx:id="startTimeCol" prefWidth="120.0" text="Start Time" />
+                        <TableColumn fx:id="endTimeCol" prefWidth="120.0" text="End Time" />
+                    </columns>
+                </TableView>
+            </children>
+        </VBox>
+      <HBox alignment="BOTTOM_CENTER" layoutX="76.0" layoutY="79.0" prefHeight="30.0" prefWidth="840.0">
+         <children>
+            <Button mnemonicParsing="false" text="Add Customer">
+               <HBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </HBox.margin></Button>
+            <Button mnemonicParsing="false" text="Modify Customer">
+               <HBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </HBox.margin></Button>
+            <Button mnemonicParsing="false" text="Add Appointment">
+               <HBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </HBox.margin></Button>
+            <Button mnemonicParsing="false" text="Modify Appointment">
+               <HBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </HBox.margin></Button>
+            <Button mnemonicParsing="false" text="Reports">
+                <HBox.margin>
+                    <Insets left="20.0" right="20.0" />
+                </HBox.margin></Button>
+         </children>
+      </HBox>
+      <DialogPane contentText="APPOINTMENT SCHEDULER" layoutX="431.0" prefHeight="57.0" prefWidth="188.0" />
+      <DialogPane contentText="View appointments by:" layoutX="209.0" layoutY="136.0" prefHeight="57.0" prefWidth="157.0" />
+      <ToolBar layoutX="374.0" layoutY="145.0" prefHeight="40.0" prefWidth="442.0">
+         <items>
+            <RadioButton mnemonicParsing="false" text="Week">
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </RadioButton>
+            <RadioButton mnemonicParsing="false" text="Month">
+               <padding>
+                  <Insets left="100.0" />
+               </padding>
+            </RadioButton>
+            <RadioButton mnemonicParsing="false" text="View All">
+               <padding>
+                  <Insets left="100.0" />
+               </padding>
+            </RadioButton>
+         </items>
+      </ToolBar>
+    </children>
+</AnchorPane>
