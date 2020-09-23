@@ -15,7 +15,5 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-
-
-public class ModifyAppointmentController {
+public class ReportsController {
 }
