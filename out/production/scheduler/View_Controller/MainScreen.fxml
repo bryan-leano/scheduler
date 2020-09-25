@@ -25,23 +25,23 @@
         </VBox>
       <HBox alignment="BOTTOM_CENTER" layoutX="76.0" layoutY="79.0" prefHeight="30.0" prefWidth="840.0">
          <children>
-            <Button mnemonicParsing="false" text="Add Customer">
+            <Button mnemonicParsing="false" onAction="#onActionAddCustomer" text="Add Customer">
                <HBox.margin>
                   <Insets left="20.0" right="20.0" />
                </HBox.margin></Button>
-            <Button mnemonicParsing="false" text="Modify Customer">
+            <Button mnemonicParsing="false" onAction="#onActionModifyCustomer" text="Modify Customer">
                <HBox.margin>
                   <Insets left="20.0" right="20.0" />
                </HBox.margin></Button>
-            <Button mnemonicParsing="false" text="Add Appointment">
+            <Button mnemonicParsing="false" onAction="#onActionAddAppointment" text="Add Appointment">
                <HBox.margin>
                   <Insets left="20.0" right="20.0" />
                </HBox.margin></Button>
-            <Button mnemonicParsing="false" text="Modify Appointment">
+            <Button mnemonicParsing="false" onAction="#onActionModifyAppointment" text="Modify Appointment">
                <HBox.margin>
                   <Insets left="20.0" right="20.0" />
                </HBox.margin></Button>
-            <Button mnemonicParsing="false" text="Reports">
+            <Button mnemonicParsing="false" onAction="#onActionReports" text="Reports">
                 <HBox.margin>
                     <Insets left="20.0" right="20.0" />
                 </HBox.margin></Button>
@@ -51,17 +51,17 @@
       <DialogPane contentText="View appointments by:" layoutX="209.0" layoutY="136.0" prefHeight="57.0" prefWidth="157.0" />
       <ToolBar layoutX="374.0" layoutY="145.0" prefHeight="40.0" prefWidth="442.0">
          <items>
-            <RadioButton mnemonicParsing="false" text="Week">
+            <RadioButton fx:id="weekRBtn" mnemonicParsing="false" text="Week">
                <padding>
                   <Insets left="30.0" />
                </padding>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" text="Month">
+            <RadioButton fx:id="monthRBtn" mnemonicParsing="false" text="Month">
                <padding>
                   <Insets left="100.0" />
                </padding>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" text="View All">
+            <RadioButton fx:id="viewAllRBtn" mnemonicParsing="false" text="View All">
                <padding>
                   <Insets left="100.0" />
                </padding>
