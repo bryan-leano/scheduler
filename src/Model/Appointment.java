@@ -24,7 +24,60 @@ public class Appointment {
         this.endTime = endTime;
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public String getName() {
+        return name;
+    }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
 
 }

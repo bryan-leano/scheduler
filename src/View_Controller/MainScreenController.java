@@ -26,13 +26,13 @@ public class MainScreenController {
     @FXML private RadioButton viewAllRBtn;
 
     @FXML private TableView<Appointment> appointmentTableView;
-    @FXML private TableColumn<Appointment, > apptIdCol;
-    @FXML private TableColumn<Appointment, > customerCol;
-    @FXML private TableColumn<Appointment, > titleCol;
-    @FXML private TableColumn<Appointment, > typeCol;
-    @FXML private TableColumn<Appointment, > dateCol;
-    @FXML private TableColumn<Appointment, > startTimeCol;
-    @FXML private TableColumn<Appointment, > endTimeCol;
+    @FXML private TableColumn<Appointment, Integer> apptIdCol;
+    @FXML private TableColumn<Appointment, String> customerCol;
+    @FXML private TableColumn<Appointment, String> titleCol;
+    @FXML private TableColumn<Appointment, String> typeCol;
+    @FXML private TableColumn<Appointment, String> dateCol;
+    @FXML private TableColumn<Appointment, String> startTimeCol;
+    @FXML private TableColumn<Appointment, String> endTimeCol;
 
     @FXML void onActionAddCustomer(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -62,13 +62,12 @@ public class MainScreenController {
         stage.show();
     };
 
-    /*
+
     @FXML void onActionReports(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+        scene = FXMLLoader.load(getClass().getResource("Reports.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
     };
-    */
 
 }
