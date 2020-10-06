@@ -1,9 +1,10 @@
 package Database;
+import Database.DBConnection;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.PreparedStatement;
+import java.sql.*;
+import java.util.Optional;
 
 
 public class DBQuery {
@@ -17,4 +18,26 @@ public class DBQuery {
     public static PreparedStatement getPreparedStatement() {
         return statement;
     }
+
+    ////LOGIN SCREEN FUNCTIONS////
+
+    public static boolean login(String usernameEntry, String passwordEntry) {
+        try {
+            Connection conn = DBConnection.startConnection();
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM user WHERE "
+            + "username = ? AND password = ?");
+            ps.setString(1, usernameEntry);
+            ps.setString(2, passwordEntry);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch(SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
+        }
+    }
+
 }

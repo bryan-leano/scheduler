@@ -25,8 +25,9 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args) throws  SQLException {
+    public static void main(String[] args) throws SQLException {
 
+        /*
         Connection conn = DBConnection.startConnection();
         String selectStatement = "SELECT * FROM country";
 
@@ -48,6 +49,7 @@ public class Main extends Application {
             System.out.println(countryId + " | " + countryName + " | " + date + " | " + time
                     + " | " + createdBy + " | " + lastUpdate);
         }
+        */
 
         launch(args);
         DBConnection.closeConnection();
