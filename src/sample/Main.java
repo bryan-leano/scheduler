@@ -16,6 +16,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Scanner;
 
 public class Main extends Application {
 
@@ -33,20 +34,39 @@ public class Main extends Application {
         DBQuery.setStatement(conn);
         Statement statement = DBQuery.getStatement();
 
-        String selectStatement = "SELECT * FROM country";
-        statement.execute(selectStatement);
-        ResultSet rs = statement.getResultSet();
+        String country, createDate, createdBy, lastUpdateBy;
+        Scanner keyboard = new Scanner(System.in);
+        System.out.print("Enter a country: ");
 
-        while(rs.next()) {
-            int countryId = rs.getInt("countryId");
-            String countryName = rs.getString("country");
-            LocalDate date = rs.getDate("createDate").toLocalDate();
-            LocalTime time = rs.getTime("createDate").toLocalTime();
-            String createdBy = rs.getString("createdBy");
-            LocalDateTime lastUpdate = rs.getTimestamp("lastUpdate").toLocalDateTime();
+        country = keyboard.nextLine();
+        createDate = "2020-10-05 00:00:00";
+        createdBy = "admin";
+        lastUpdateBy = "admin";
 
-            System.out.println(countryId + " | " + countryName + " | " + date + " | " + time
-                    + " | " + createdBy + " | " + lastUpdate);
+        if(country.contains("'")){
+            country = country.replace("'", "\\'");
+        }
+
+        String insertStatement = "INSERT INTO country(country, createDate, createdBy, lastUpdateBy)" +
+                "VALUES(" +
+                "'" + country + "'," +
+                "'" + createDate + "'," +
+                "'" + createdBy + "'," +
+                "'" + lastUpdateBy + "'" +
+                ")";
+
+        try{
+            statement.execute(insertStatement);
+
+            if(statement.getUpdateCount() > 0) {
+                System.out.println(statement.getUpdateCount() + " row(s) affected!");
+            } else {
+                System.out.println("No change!");
+            }
+
+        }
+        catch(Exception e) {
+            System.out.println(e.getMessage());
         }
 
         launch(args);
