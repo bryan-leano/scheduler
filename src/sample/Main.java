@@ -9,10 +9,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import javax.swing.plaf.nimbus.State;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -31,42 +28,25 @@ public class Main extends Application {
     public static void main(String[] args) throws  SQLException {
 
         Connection conn = DBConnection.startConnection();
-        DBQuery.setStatement(conn);
-        Statement statement = DBQuery.getStatement();
+        String selectStatement = "SELECT * FROM country";
 
-        String country, createDate, createdBy, lastUpdateBy;
-        Scanner keyboard = new Scanner(System.in);
-        System.out.print("Enter a country: ");
+        DBQuery.setPreparedStatement(conn, selectStatement);
+        PreparedStatement ps = DBQuery.getPreparedStatement();
 
-        country = keyboard.nextLine();
-        createDate = "2020-10-05 00:00:00";
-        createdBy = "admin";
-        lastUpdateBy = "admin";
+        ps.execute();
 
-        if(country.contains("'")){
-            country = country.replace("'", "\\'");
-        }
+        ResultSet rs = ps.getResultSet();
 
-        String insertStatement = "INSERT INTO country(country, createDate, createdBy, lastUpdateBy)" +
-                "VALUES(" +
-                "'" + country + "'," +
-                "'" + createDate + "'," +
-                "'" + createdBy + "'," +
-                "'" + lastUpdateBy + "'" +
-                ")";
+        while(rs.next()) {
+            int countryId = rs.getInt("countryId");
+            String countryName = rs.getString("country");
+            LocalDate date = rs.getDate("createDate").toLocalDate();
+            LocalTime time = rs.getTime("createDate").toLocalTime();
+            String createdBy = rs.getString("createdBy");
+            LocalDateTime lastUpdate = rs.getTimestamp("lastUpdate").toLocalDateTime();
 
-        try{
-            statement.execute(insertStatement);
-
-            if(statement.getUpdateCount() > 0) {
-                System.out.println(statement.getUpdateCount() + " row(s) affected!");
-            } else {
-                System.out.println("No change!");
-            }
-
-        }
-        catch(Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println(countryId + " | " + countryName + " | " + date + " | " + time
+                    + " | " + createdBy + " | " + lastUpdate);
         }
 
         launch(args);
