@@ -26,17 +26,17 @@
                         <Label text="Customer Name" GridPane.rowIndex="1" />
                         <Label text="Phone Number" GridPane.rowIndex="2" />
                         <Label text="Address" GridPane.rowIndex="3" />
-                        <Label text="City" GridPane.rowIndex="4" />
-                        <Label text="Zip Code" GridPane.rowIndex="5" />
-                        <Label text="Country" GridPane.rowIndex="6" />
+                        <Label text="Country" GridPane.rowIndex="4" />
+                        <Label text="City" GridPane.rowIndex="5" />
+                        <Label text="Zip Code" GridPane.rowIndex="6" />
 
                         <TextField fx:id="custIdTxt" GridPane.columnIndex="1" />
                         <TextField fx:id="nameTxt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="phoneTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="addressTxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="cityTxt" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField fx:id="zipTxt" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField fx:id="countryTxt" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <ComboBox fx:id="countryComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <ComboBox fx:id="cityComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="zipTxt" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 
 
                     </children>
