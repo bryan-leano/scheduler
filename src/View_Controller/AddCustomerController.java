@@ -17,4 +17,14 @@ import java.util.ResourceBundle;
 
 
 public class AddCustomerController {
+
+    Stage stage;
+    Parent scene;
+
+    @FXML void onActionDisplayMain(ActionEvent event) throws IOException {
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
+    }
 }

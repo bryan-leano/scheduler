@@ -48,7 +48,7 @@
           <HBox alignment="CENTER_RIGHT" layoutX="141.0" layoutY="353.0" prefHeight="100.0" prefWidth="338.0" spacing="10.0">
               <children>
                   <Button mnemonicParsing="false" text="Save" />
-                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Cancel" />
+                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onActionDisplayMain" text="Cancel" />
               </children>
           </HBox>
       <VBox layoutX="564.0" layoutY="104.0" prefHeight="246.0" prefWidth="281.0">
