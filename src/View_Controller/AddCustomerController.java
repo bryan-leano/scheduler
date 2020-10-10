@@ -13,8 +13,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import Database.DBQuery;
 
 
 public class AddCustomerController implements Initializable {
@@ -49,7 +51,30 @@ public class AddCustomerController implements Initializable {
         stage.show();
     }
 
+    @FXML void onActionSaveCustomer(ActionEvent event) throws IOException {
+        try{
+            String name = nameTxt.getText();
+            String phone = phoneTxt.getText();
+            String address = addressTxt.getText();
+            String country = countryComboBox.getSelectionModel().getSelectedItem().toString();
+            String city = cityComboBox.getSelectionModel().getSelectedItem().toString();
+            String zip = zipTxt.getText();
+
+            System.out.println(country);
+            System.out.println(city);
+
+            DBQuery.saveCustomer(name, phone, address, country, city, zip);
+
+
+        } catch (NullPointerException | SQLException e) {
+            ////add in an exception///
+        }
+    }
+
     @Override public void initialize(URL location, ResourceBundle resources) {
+        custIdTxt.setDisable(true);
+        custIdTxt.setText("***Auto Generated***");
+
         countryComboBox.setItems(countries);
         countryComboBox.getSelectionModel().selectFirst();
 

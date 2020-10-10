@@ -40,4 +40,27 @@ public class DBQuery {
         }
     }
 
+    ////ADD CUSTOMER FUNCTIONS////
+
+    public static void saveCustomer(String name, String phone, String address, String country,
+                                    String city, String zip) throws SQLException {
+
+        System.out.println(city);
+
+        Connection conn = DBConnection.startConnection();
+
+        //Get city id!!//
+        /*
+        String insertStatement = "INSERT INTO customer () VALUES ()";
+
+        DBQuery.setPreparedStatement(conn, deleteStatement);
+
+        PreparedStatement ps = DBQuery.getPreparedStatement();
+
+         */
+
+    }
+
+
+
 }
