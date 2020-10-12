@@ -1,10 +1,9 @@
 package Database;
-import Database.DBConnection;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 
 import java.sql.*;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 
 public class DBQuery {
@@ -18,6 +17,7 @@ public class DBQuery {
     public static PreparedStatement getPreparedStatement() {
         return statement;
     }
+
 
     ////LOGIN SCREEN FUNCTIONS////
 
@@ -45,22 +45,14 @@ public class DBQuery {
     public static void saveCustomer(String name, String phone, String address, String country,
                                     String city, String zip) throws SQLException {
 
-        System.out.println(city);
 
         Connection conn = DBConnection.startConnection();
 
-        //Get city id!!//
-        /*
-        String insertStatement = "INSERT INTO customer () VALUES ()";
+        //stmt.executeUpdate("UPDATE city SET city = 'Portland' WHERE city = 'Seattle'");
 
-        DBQuery.setPreparedStatement(conn, deleteStatement);
-
-        PreparedStatement ps = DBQuery.getPreparedStatement();
-
-         */
+        Statement stmt = conn.createStatement();
+        ResultSet rsCityId = stmt.executeQuery(String.format("SELECT * FROM city WHERE city = '%s'", city));
+        rsCityId.next();
 
     }
-
-
-
 }
