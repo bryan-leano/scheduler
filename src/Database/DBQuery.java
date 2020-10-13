@@ -52,13 +52,23 @@ public class DBQuery {
                 "WHERE + city = '%s'", city));
         rsCityId.next();
 
-        Statement stmtAddAppointment = conn.createStatement();
-        stmtAddAppointment.executeUpdate(String.format("INSERT INTO address (address, address2, " +
+        Statement stmtAddAddress = conn.createStatement();
+        stmtAddAddress.executeUpdate(String.format("INSERT INTO address (address, address2, " +
                 "cityId, postalCode, phone, createDate, createdBy, lastUpdate, lastUpdateBy) " +
                 "VALUES ('%s', 'N/A', %s, '%s', '%s', NOW(), 'admin', " +
                 "NOW(), 'admin')", address, rsCityId.getString("cityId"), zip, phone));
 
-                System.out.println("This works");
+        Statement stmtGetAddressId = conn.createStatement();
+        ResultSet rsAddressId = stmtGetAddressId.executeQuery(String.format("SELECT addressId FROM " +
+                "address WHERE address = '%s' AND cityId = '%s' AND postalCode = '%s' " +
+                "AND phone = '%s'", address, rsCityId.getString("cityId"), zip, phone));
+        rsAddressId.next();
+
+        Statement stmtAddCustomer = conn.createStatement();
+        stmtAddCustomer.executeUpdate(String.format("INSERT INTO customer (customerName, " +
+                "addressId, active, createDate, createdBy, lastUpdate, lastUpdateBy) " +
+                "VALUES ('%s', '%s', 1, NOW(), 'admin', NOW(), 'admin')",
+                name, rsAddressId.getString("addressId")));
 
     }
 

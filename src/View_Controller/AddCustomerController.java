@@ -60,14 +60,11 @@ public class AddCustomerController implements Initializable {
             String city = cityComboBox.getSelectionModel().getSelectedItem().toString();
             String zip = zipTxt.getText();
 
-            System.out.println(country);
-            System.out.println(city);
-
             DBQuery.saveCustomer(name, phone, address, country, city, zip);
 
 
         } catch (NullPointerException | SQLException e) {
-            ////add in an exception///
+            System.out.println("SQLException: " + e.getMessage());
         }
     }
 
