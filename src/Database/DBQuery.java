@@ -45,14 +45,21 @@ public class DBQuery {
     public static void saveCustomer(String name, String phone, String address, String country,
                                     String city, String zip) throws SQLException {
 
-
         Connection conn = DBConnection.startConnection();
 
-        //stmt.executeUpdate("UPDATE city SET city = 'Portland' WHERE city = 'Seattle'");
-
-        Statement stmt = conn.createStatement();
-        ResultSet rsCityId = stmt.executeQuery(String.format("SELECT * FROM city WHERE city = '%s'", city));
+        Statement stmtGetCityId = conn.createStatement();
+        ResultSet rsCityId = stmtGetCityId.executeQuery(String.format("SELECT cityId FROM city " +
+                "WHERE + city = '%s'", city));
         rsCityId.next();
 
+        Statement stmtAddAppointment = conn.createStatement();
+        stmtAddAppointment.executeUpdate(String.format("INSERT INTO address (address, address2, " +
+                "cityId, postalCode, phone, createDate, createdBy, lastUpdate, lastUpdateBy) " +
+                "VALUES ('%s', 'N/A', %s, '%s', '%s', NOW(), 'admin', " +
+                "NOW(), 'admin')", address, rsCityId.getString("cityId"), zip, phone));
+
+                System.out.println("This works");
+
     }
+
 }
