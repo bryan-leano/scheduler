@@ -33,7 +33,7 @@
                         <TextField fx:id="apptIdTxt" GridPane.columnIndex="1" />
                         <TextField fx:id="nameTxt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="titleTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="typeTxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <ComboBox fx:id="typeComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <TextField fx:id="dateTxt" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <TextField fx:id="startTimeTxt" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <TextField fx:id="endTimeTxt" GridPane.columnIndex="1" GridPane.rowIndex="6" />
@@ -47,16 +47,16 @@
         <DialogPane contentText="ADD APPOINTMENT" layoutX="231.0" prefHeight="57.0" prefWidth="138.0" />
           <HBox alignment="CENTER_RIGHT" layoutX="141.0" layoutY="353.0" prefHeight="100.0" prefWidth="338.0" spacing="10.0">
               <children>
-                  <Button mnemonicParsing="false" text="Save" />
+                  <Button mnemonicParsing="false" onAction="#onActionSaveAppointment" text="Save" />
                   <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onActionDisplayMain" text="Cancel" />
               </children>
           </HBox>
       <VBox layoutX="564.0" layoutY="104.0" prefHeight="246.0" prefWidth="281.0">
          <children>
-            <TableView prefHeight="240.0" prefWidth="281.0">
+            <TableView fx:id="customerTableView" prefHeight="240.0" prefWidth="281.0">
               <columns>
-                <TableColumn prefWidth="90.0" text="Customer ID" />
-                <TableColumn prefWidth="191.0" text="Customer Name" />
+                <TableColumn fx:id="custIdCol" prefWidth="90.0" text="Customer ID" />
+                <TableColumn fx:id="custNameCol" prefWidth="191.0" text="Customer Name" />
               </columns>
             </TableView>
          </children></VBox>

@@ -69,6 +69,11 @@ public class DBQuery {
                 "addressId, active, createDate, createdBy, lastUpdate, lastUpdateBy) " +
                 "VALUES ('%s', '%s', 1, NOW(), 'admin', NOW(), 'admin')",
                 name, rsAddressId.getString("addressId")));
+    }
+
+    ////ADD APPOINTMENT////
+
+    public static void saveAppointment() throws SQLException {
 
     }
 
