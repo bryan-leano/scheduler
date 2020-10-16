@@ -14,6 +14,7 @@
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -23,20 +24,22 @@
                     </rowConstraints>
                     <children>
                         <Label text="Appointment ID" />
-                        <Label text="Customer Name" GridPane.rowIndex="1" />
-                        <Label text="Title" GridPane.rowIndex="2" />
-                        <Label text="Type" GridPane.rowIndex="3" />
-                        <Label text="Date" GridPane.rowIndex="4" />
-                        <Label text="Start Time" GridPane.rowIndex="5" />
-                        <Label text="End Time" GridPane.rowIndex="6" />
+                  <Label text="Customer ID" GridPane.rowIndex="1" />
+                        <Label text="Customer Name" GridPane.rowIndex="2" />
+                        <Label text="Title" GridPane.rowIndex="3" />
+                        <Label text="Type" GridPane.rowIndex="4" />
+                        <Label text="Date" GridPane.rowIndex="5" />
+                        <Label text="Start Time" GridPane.rowIndex="6" />
+                        <Label text="End Time" GridPane.rowIndex="7" />
 
                         <TextField fx:id="apptIdTxt" GridPane.columnIndex="1" />
-                        <TextField fx:id="nameTxt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="titleTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <ComboBox fx:id="typeComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="dateTxt" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField fx:id="startTimeTxt" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField fx:id="endTimeTxt" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <TextField fx:id="idTxt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="nameTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="titleTxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <ComboBox fx:id="typeComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <DatePicker fx:id="dateDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="startTimeTxt" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="endTimeTxt" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 
 
                     </children>
@@ -62,7 +65,7 @@
          </children></VBox>
       <HBox layoutX="716.0" layoutY="372.0" prefHeight="43.0" prefWidth="105.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" text="Add Customer" />
+            <Button mnemonicParsing="false" onAction="#onActionSelectCust" prefHeight="27.0" prefWidth="100.0" text="Add Customer" />
          </children>
       </HBox>
     </children>

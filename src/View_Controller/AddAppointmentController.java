@@ -19,6 +19,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -30,10 +31,11 @@ public class AddAppointmentController implements Initializable {
     Parent scene;
 
     @FXML private TextField apptIdTxt;
+    @FXML private TextField idTxt;
     @FXML private TextField nameTxt;
     @FXML private TextField titleTxt;
     @FXML private ComboBox typeComboBox;
-    @FXML private TextField dateTxt;
+    @FXML private DatePicker dateDatePicker;
     @FXML private TextField startTimeTxt;
     @FXML private TextField endTimeTxt;
 
@@ -53,19 +55,28 @@ public class AddAppointmentController implements Initializable {
         stage.show();
     }
 
+    @FXML void onActionSelectCust (ActionEvent event) throws IOException {
+        Customer addApptCustomer = customerTableView.getSelectionModel().getSelectedItem();
+
+        nameTxt.setText(addApptCustomer.getName());
+        idTxt.setText(String.valueOf(addApptCustomer.getId()));
+
+    }
+
     @FXML void onActionSaveAppointment(ActionEvent event) throws IOException {
         try{
             String name = nameTxt.getText();
+            String id = idTxt.getText();
             String title = titleTxt.getText();
             String type = typeComboBox.getSelectionModel().getSelectedItem().toString();
-            String date = dateTxt.getText();
+            String date = dateDatePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             String startTime = startTimeTxt.getText();
             String endTime = endTimeTxt.getText();
 
             DBQuery.saveAppointment();
 
-
         } catch (NullPointerException | SQLException e) {
+            System.out.println("Error: " + e);
             System.out.println("SQLException: " + e.getMessage());
         }
     }
