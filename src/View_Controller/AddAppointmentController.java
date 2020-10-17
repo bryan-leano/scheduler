@@ -14,6 +14,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
+import javax.management.Query;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -36,8 +38,8 @@ public class AddAppointmentController implements Initializable {
     @FXML private TextField titleTxt;
     @FXML private ComboBox typeComboBox;
     @FXML private DatePicker dateDatePicker;
-    @FXML private TextField startTimeTxt;
-    @FXML private TextField endTimeTxt;
+    @FXML private ComboBox startTimeComboBox;
+    @FXML private ComboBox endTimeComboBox;
 
     @FXML private TableView<Customer> customerTableView;
     @FXML private TableColumn<Customer,String> custIdCol;
@@ -70,10 +72,10 @@ public class AddAppointmentController implements Initializable {
             String title = titleTxt.getText();
             String type = typeComboBox.getSelectionModel().getSelectedItem().toString();
             String date = dateDatePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            String startTime = startTimeTxt.getText();
-            String endTime = endTimeTxt.getText();
+            String startTime = (String) startTimeComboBox.getValue().toString();
+            String endTime = (String) endTimeComboBox.getValue().toString();
 
-            DBQuery.saveAppointment();
+            DBQuery.saveAppointment(name, id, title, type, date, startTime, endTime);
 
         } catch (NullPointerException | SQLException e) {
             System.out.println("Error: " + e);
@@ -87,6 +89,10 @@ public class AddAppointmentController implements Initializable {
 
         typeComboBox.setItems(apptTypes);
         typeComboBox.getSelectionModel().selectFirst();
+
+        startTimeComboBox.setItems(DBQuery.getTimes());
+        endTimeComboBox.setItems(DBQuery.getTimes());
+
 
         Connection conn;
 

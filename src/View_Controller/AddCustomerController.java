@@ -62,7 +62,6 @@ public class AddCustomerController implements Initializable {
 
             DBQuery.saveCustomer(name, phone, address, country, city, zip);
 
-
         } catch (NullPointerException | SQLException e) {
             System.out.println("SQLException: " + e.getMessage());
         }

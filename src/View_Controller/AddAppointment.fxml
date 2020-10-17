@@ -38,8 +38,8 @@
                         <TextField fx:id="titleTxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <ComboBox fx:id="typeComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <DatePicker fx:id="dateDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField fx:id="startTimeTxt" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <TextField fx:id="endTimeTxt" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <ComboBox fx:id="startTimeComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <ComboBox fx:id="endTimeComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 
 
                     </children>
@@ -48,7 +48,7 @@
 
         </VBox>
         <DialogPane contentText="ADD APPOINTMENT" layoutX="231.0" prefHeight="57.0" prefWidth="138.0" />
-          <HBox alignment="CENTER_RIGHT" layoutX="141.0" layoutY="353.0" prefHeight="100.0" prefWidth="338.0" spacing="10.0">
+          <HBox alignment="CENTER_RIGHT" layoutX="141.0" layoutY="377.0" prefHeight="76.0" prefWidth="338.0" spacing="10.0">
               <children>
                   <Button mnemonicParsing="false" onAction="#onActionSaveAppointment" text="Save" />
                   <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onActionDisplayMain" text="Cancel" />

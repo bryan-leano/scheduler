@@ -1,14 +1,23 @@
 package Database;
 
+import Model.Customer;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 
 public class DBQuery {
 
     private static PreparedStatement statement;
+
+    public static ObservableList<String> times = FXCollections.observableArrayList();
+
 
     public static void setPreparedStatement(Connection conn, String sqlStatement) throws SQLException {
         statement = conn.prepareStatement(sqlStatement);
@@ -73,8 +82,55 @@ public class DBQuery {
 
     ////ADD APPOINTMENT////
 
-    public static void saveAppointment() throws SQLException {
+    public static void saveAppointment(String name, String id, String title, String type, String date,
+                                       String startTime, String endTime) throws SQLException {
 
+        LocalDateTime localStart = varLDT_UTC(startTime, date);
+        LocalDateTime localEnd = varLDT_UTC(endTime, date);
+        String UTCstart = localStart.toString();
+        String UTCend = localEnd.toString();
+
+        Connection conn = DBConnection.startConnection();
+        Statement stmtAddAppt = conn.createStatement();
+
+        stmtAddAppt.executeUpdate(String.format("INSERT INTO appointment (customerId, " +
+                        "userId, title, description, location, contact, type, url, start, end, " +
+                        "createDate, createdBy, lastUpdate, lastUpdateBy) VALUES ('%s', '%s', " +
+                        "'%s', 'N/A', 'N/A', 'N/A', '%s', 'N/A', '%s', '%s', NOW(), 'admin' " +
+                        "NOW(), 'admin')", id, 1, title, type, UTCstart, UTCend));
+    }
+
+    ////TIME BASED FUNCTIONS////
+
+    public static LocalDateTime varLDT_UTC(String time, String date) {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime localDT =  LocalDateTime.parse(date + " " + time, format).atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("UTC")).toLocalDateTime();
+        return localDT;
+    }
+
+    public static ObservableList<String> getTimes() {
+        try {
+            times.removeAll(times); //prevents cities from copying themselves to the list
+            for (int i = 0; i < 24; i++ ) {
+                String hour;
+                if(i < 10) {
+                    hour = "0" + i;
+                }
+
+                else {
+                    hour = Integer.toString(i);
+                }
+                times.add(hour + ":00:00");
+                times.add(hour + ":15:00");
+                times.add(hour + ":30:00");
+                times.add(hour + ":45:00");
+            }
+            times.add("24:00:00"); //add midnight to the list
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return times;
     }
 
 }
