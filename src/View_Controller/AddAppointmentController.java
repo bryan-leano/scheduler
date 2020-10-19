@@ -104,7 +104,8 @@ public class AddAppointmentController implements Initializable {
                     "INNER JOIN city i ON a.cityId = i.cityId " +
                     "INNER JOIN country o ON i.countryId = o.countryId ORDER BY customerId");
             while (rsCust.next()) {
-                allCustomers.add(new Customer(rsCust.getInt("customerId"),
+                allCustomers.add(new Customer(
+                        rsCust.getInt("customerId"),
                         rsCust.getString("customerName"),
                         rsCust.getString("phone"),
                         rsCust.getString("address"),

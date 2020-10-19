@@ -96,7 +96,7 @@ public class DBQuery {
         stmtAddAppt.executeUpdate(String.format("INSERT INTO appointment (customerId, " +
                         "userId, title, description, location, contact, type, url, start, end, " +
                         "createDate, createdBy, lastUpdate, lastUpdateBy) VALUES ('%s', '%s', " +
-                        "'%s', 'N/A', 'N/A', 'N/A', '%s', 'N/A', '%s', '%s', NOW(), 'admin' " +
+                        "'%s', 'N/A', 'N/A', 'N/A', '%s', 'N/A', '%s', '%s', NOW(), 'admin', " +
                         "NOW(), 'admin')", id, 1, title, type, UTCstart, UTCend));
     }
 
