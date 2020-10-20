@@ -29,7 +29,7 @@
                <HBox.margin>
                   <Insets left="20.0" right="20.0" />
                </HBox.margin></Button>
-            <Button mnemonicParsing="false" onAction="#onActionModifyCustomer" text="Modify Customer">
+            <Button mnemonicParsing="false" onAction="#onActionModifyCustomerList" text="Modify Customer">
                <HBox.margin>
                   <Insets left="20.0" right="20.0" />
                </HBox.margin></Button>

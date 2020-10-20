@@ -65,9 +65,9 @@ public class MainScreenController implements Initializable {
         stage.show();
     };
 
-    @FXML void onActionModifyCustomer(ActionEvent event) throws IOException {
+    @FXML void onActionModifyCustomerList(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("ModifyCustomer.fxml"));
+        scene = FXMLLoader.load(getClass().getResource("ModifyCustomerList.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
     };

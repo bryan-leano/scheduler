@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.ModifyCustomerListController">
+   <children>
+      <VBox layoutX="11.0" layoutY="14.0" prefHeight="375.0" prefWidth="525.0">
+         <children>
+            <TableView fx:id="customerTableView" prefHeight="525.0" prefWidth="525.0">
+              <columns>
+                <TableColumn fx:id="custIdCol" prefWidth="75.0" text="Customer ID" />
+                <TableColumn fx:id="custNameCol" prefWidth="150.0" text="Customer Name" />
+                  <TableColumn fx:id="custAddressCol" prefWidth="150.0" text="Address" />
+                  <TableColumn fx:id="custPhoneCol" prefWidth="150.0" text="Phone" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
+      <DialogPane contentText="SELECT CUSTOMER" layoutX="560.0" layoutY="84.0" prefHeight="0.0" prefWidth="147.0" />
+      <HBox layoutX="611.0" layoutY="200.0" prefHeight="27.0" prefWidth="111.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onActionModifyCustomer" text="Modify" />
+         </children>
+      </HBox>
+      <HBox layoutX="612.0" layoutY="267.0" prefHeight="27.0" prefWidth="102.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onActionDisplayMain" text="Cancel" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
