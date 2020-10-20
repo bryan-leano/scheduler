@@ -30,19 +30,26 @@ public class ModifyCustomerListController implements Initializable {
     Stage stage;
     Parent scene;
 
-    /*
-    @FXML private TableView<> customerTableView;
-    @FXML private TableColumn<,> custIdCol;
-    @FXML private TableColumn<,> custNameCol;
-    @FXML private TableColumn<,> custAddressCol;
-    @FXML private TableColumn<,> custPhoneCol;
+    @FXML private TableView<Customer> customerTableView;
+    @FXML private TableColumn<Customer,String> custIdCol;
+    @FXML private TableColumn<Customer,String> custNameCol;
+    @FXML private TableColumn<Customer,String> custAddressCol;
+    @FXML private TableColumn<Customer,String> custPhoneCol;
 
-     */
+    public ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
 
 
     @FXML void onActionModifyCustomer(ActionEvent event) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("ModifyCustomer.fxml"));
+        loader.load();
+
+        ModifyCustomerController CustomerInfoController = loader.getController();
+        CustomerInfoController.sendCustomer(customerTableView.getSelectionModel().getSelectedItem());
+
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("ModifyCustomer.fxml"));
+        Parent scene = loader.getRoot();
         stage.setScene(new Scene(scene));
         stage.show();
     }
@@ -56,6 +63,36 @@ public class ModifyCustomerListController implements Initializable {
 
 
     @Override public void initialize(URL location, ResourceBundle resources) {
+
+        Connection conn;
+
+        try {
+            conn = DBConnection.startConnection();
+            ResultSet rsCust = conn.createStatement().executeQuery("SELECT customerId, " +
+                    "customerName, address, address2, city, postalCode, country, phone " +
+                    "FROM customer c INNER JOIN address a ON c.addressId = a.addressId " +
+                    "INNER JOIN city i ON a.cityId = i.cityId " +
+                    "INNER JOIN country o ON i.countryId = o.countryId ORDER BY customerId");
+            while (rsCust.next()) {
+                allCustomers.add(new Customer(
+                        rsCust.getInt("customerId"),
+                        rsCust.getString("customerName"),
+                        rsCust.getString("phone"),
+                        rsCust.getString("address"),
+                        rsCust.getString("city"),
+                        rsCust.getInt("postalCode"),
+                        rsCust.getString("country")));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        custIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        custNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        custAddressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
+        custPhoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
+
+        customerTableView.setItems(allCustomers);
 
     }
 
