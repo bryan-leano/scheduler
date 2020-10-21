@@ -25,25 +25,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class MainScreenController implements Initializable {
+public class ModifyAppointmentListController implements Initializable {
 
     Stage stage;
     Parent scene;
 
-    @FXML private RadioButton weekRBtn;
-    @FXML private RadioButton monthRBtn;
-    @FXML private RadioButton viewAllRBtn;
+    @FXML private TableView<Appointment> AppointmentTableView;
+    @FXML private TableColumn<Appointment,String> ApptIdCol;
+    @FXML private TableColumn<Appointment,String> custNameCol;
+    @FXML private TableColumn<Appointment,String> titleCol;
+    @FXML private TableColumn<Appointment,String> dateCol;
 
-    @FXML private TableView<Appointment> appointmentTableView;
-    @FXML private TableColumn<Appointment, Integer> apptIdCol;
-    @FXML private TableColumn<Appointment, String> customerCol;
-    @FXML private TableColumn<Appointment, String> titleCol;
-    @FXML private TableColumn<Appointment, String> typeCol;
-    @FXML private TableColumn<Appointment, String> dateCol;
-    @FXML private TableColumn<Appointment, String> startTimeCol;
-    @FXML private TableColumn<Appointment, String> endTimeCol;
-
-    public ObservableList<Appointment> appointmentsList = FXCollections.observableArrayList();
+    public ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
 
     public interface LocalDateTime_Interface {
 
@@ -51,54 +44,39 @@ public class MainScreenController implements Initializable {
 
     }
 
-    LocalDateTime_Interface convert = (String dateTime) -> { //Lambda used to convert the UTC datetime from the database to the user's localdatetime
+    MainScreenController.LocalDateTime_Interface convert = (String dateTime) -> { //Lambda used to convert the UTC datetime from the database to the user's localdatetime
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
         LocalDateTime ldt =  LocalDateTime.parse(dateTime, format).atZone(ZoneId.of("UTC")).withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime();
         return ldt;
     };
 
-
-    @FXML void onActionAddCustomer(ActionEvent event) throws IOException {
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("AddCustomer.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
-    };
-
-    @FXML void onActionModifyCustomerList(ActionEvent event) throws IOException {
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("ModifyCustomerList.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
-    };
-
-    @FXML void onActionAddAppointment(ActionEvent event) throws IOException {
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("AddAppointment.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
-    };
-
     @FXML void onActionModifyAppointment(ActionEvent event) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("ModifyAppointment.fxml"));
+        loader.load();
+
+        ModifyAppointmentController AppointmentInfoController = loader.getController();
+        AppointmentInfoController.sendAppointment(AppointmentTableView.getSelectionModel().getSelectedItem());
+
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("ModifyAppointmentList.fxml"));
+        Parent scene = loader.getRoot();
         stage.setScene(new Scene(scene));
         stage.show();
-    };
+    }
 
-
-    @FXML void onActionReports(ActionEvent event) throws IOException {
+    @FXML void onActionDisplayMain(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("Reports.fxml"));
+        scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
-    };
+    }
 
-    public void viewAllAppts() {
+    @Override public void initialize(URL location, ResourceBundle resources) {
 
         Connection conn;
+
         try {
-            appointmentsList.clear();
             conn = DBConnection.startConnection();
             ResultSet rsAppt = conn.createStatement().executeQuery("SELECT appointmentId, " +
                     "customerName, title, type, DATE(start) date, " +
@@ -110,7 +88,7 @@ public class MainScreenController implements Initializable {
                 String zonedStartString = zonedStart.toString().substring(11,16);
                 String zonedEndString = zonedEnd.toString().substring(11,16);
 
-                appointmentsList.add(new Appointment(
+                allAppointments.add(new Appointment(
                         rsAppt.getInt("appointmentId"),
                         rsAppt.getString("customerName"),
                         rsAppt.getString("title"),
@@ -119,24 +97,16 @@ public class MainScreenController implements Initializable {
                         zonedStartString,
                         zonedEndString));
             }
-            appointmentTableView.setItems(appointmentsList);
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
         }
 
-    }
-
-    @Override public void initialize(URL location, ResourceBundle resources) {
-
-        viewAllAppts();
-
-        apptIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        customerCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        ApptIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        custNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
-        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
-        startTimeCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
-        endTimeCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+
+        AppointmentTableView.setItems(allAppointments);
 
     }
 

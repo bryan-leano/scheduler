@@ -65,6 +65,8 @@ public class ModifyCustomerController implements  Initializable {
 
     @Override public void initialize(URL location, ResourceBundle resources) {
 
+        custIdTxt.setDisable(true);
+
         countryComboBox.setItems(countries);
 
     }
