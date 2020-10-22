@@ -64,9 +64,9 @@
                     </columns>
                 </TableView>
             </children></VBox>
-        <HBox layoutX="716.0" layoutY="372.0" prefHeight="43.0" prefWidth="105.0">
+        <HBox layoutX="719.0" layoutY="372.0" prefHeight="43.0" prefWidth="126.0">
             <children>
-                <Button mnemonicParsing="false" onAction="#onActionSelectCust" prefHeight="27.0" prefWidth="100.0" text="Add Customer" />
+                <Button mnemonicParsing="false" onAction="#onActionSelectCust" prefHeight="27.0" prefWidth="125.0" text="Switch Customer" />
             </children>
         </HBox>
     </children>
