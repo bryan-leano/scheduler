@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.ModifyAppointmentController">
+<AnchorPane prefHeight="400.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.ModifyAppointmentController">
 
     <children>
         <VBox layoutX="120.0" layoutY="79.0" prefHeight="270.0" prefWidth="360.0">
@@ -15,7 +15,7 @@
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -25,7 +25,7 @@
                     </rowConstraints>
                     <children>
                         <Label text="Appointment ID" />
-                  <Label text="Customer ID" GridPane.rowIndex="1" />
+                        <Label text="Customer ID" GridPane.rowIndex="1" />
                         <Label text="Customer Name" GridPane.rowIndex="2" />
                         <Label text="Title" GridPane.rowIndex="3" />
                         <Label text="Type" GridPane.rowIndex="4" />
@@ -34,13 +34,13 @@
                         <Label text="End Time" GridPane.rowIndex="7" />
 
                         <TextField fx:id="apptIdTxt" GridPane.columnIndex="1" />
-                  <TextField fx:id="idTxt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="custIdTxt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="nameTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="titleTxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="typeTxt" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField fx:id="dateTxt" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField fx:id="startTimeTxt" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <TextField fx:id="endTimeTxt" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <ComboBox fx:id="typeComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <DatePicker fx:id="dateDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <ComboBox fx:id="startTimeComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <ComboBox fx:id="endTimeComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 
 
                     </children>
@@ -48,12 +48,27 @@
             </children>
 
         </VBox>
-        <DialogPane contentText="MODIFY APPOINTMENT" layoutX="221.0" prefHeight="57.0" prefWidth="159.0" />
-        <HBox alignment="CENTER_RIGHT" layoutX="141.0" layoutY="353.0" prefHeight="100.0" prefWidth="338.0" spacing="10.0">
+        <DialogPane contentText="MODIFY APPOINTMENT" layoutX="231.0" prefHeight="57.0" prefWidth="159.0" />
+        <HBox alignment="CENTER_RIGHT" layoutX="141.0" layoutY="377.0" prefHeight="76.0" prefWidth="338.0" spacing="10.0">
             <children>
-                <Button mnemonicParsing="false" text="Save" />
-                <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Cancel" />
+            <Button mnemonicParsing="false" onAction="#onActionSaveAppointment" text="Save" />
+                <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onActionDisplayMain" text="Cancel" />
+            </children>
+        </HBox>
+        <VBox layoutX="564.0" layoutY="104.0" prefHeight="246.0" prefWidth="281.0">
+            <children>
+                <TableView fx:id="customerTableView" prefHeight="240.0" prefWidth="281.0">
+                    <columns>
+                        <TableColumn fx:id="custIdCol" prefWidth="90.0" text="Customer ID" />
+                        <TableColumn fx:id="custNameCol" prefWidth="191.0" text="Customer Name" />
+                    </columns>
+                </TableView>
+            </children></VBox>
+        <HBox layoutX="716.0" layoutY="372.0" prefHeight="43.0" prefWidth="105.0">
+            <children>
+                <Button mnemonicParsing="false" onAction="#onActionSelectCust" prefHeight="27.0" prefWidth="100.0" text="Add Customer" />
             </children>
         </HBox>
     </children>
+
 </AnchorPane>

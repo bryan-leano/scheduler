@@ -79,7 +79,7 @@ public class ModifyAppointmentListController implements Initializable {
         try {
             conn = DBConnection.startConnection();
             ResultSet rsAppt = conn.createStatement().executeQuery("SELECT appointmentId, " +
-                    "customerName, title, type, DATE(start) date, " +
+                    "c.customerId, customerName, title, type, DATE(start) date, " +
                     "start, end FROM customer c INNER JOIN appointment a ON " +
                     "c.customerId = a.customerId ORDER BY start;");
             while (rsAppt.next()) {
@@ -90,6 +90,7 @@ public class ModifyAppointmentListController implements Initializable {
 
                 allAppointments.add(new Appointment(
                         rsAppt.getInt("appointmentId"),
+                        rsAppt.getInt("customerId"),
                         rsAppt.getString("customerName"),
                         rsAppt.getString("title"),
                         rsAppt.getString("type"),
@@ -101,7 +102,7 @@ public class ModifyAppointmentListController implements Initializable {
             System.out.println("Error: " + e.getMessage());
         }
 
-        ApptIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        ApptIdCol.setCellValueFactory(new PropertyValueFactory<>("apptId"));
         custNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));

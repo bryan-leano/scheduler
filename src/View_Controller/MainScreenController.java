@@ -101,7 +101,7 @@ public class MainScreenController implements Initializable {
             appointmentsList.clear();
             conn = DBConnection.startConnection();
             ResultSet rsAppt = conn.createStatement().executeQuery("SELECT appointmentId, " +
-                    "customerName, title, type, DATE(start) date, " +
+                    "c.customerId, customerName, title, type, DATE(start) date, " +
                     "start, end FROM customer c INNER JOIN appointment a ON " +
                     "c.customerId = a.customerId ORDER BY start;");
             while (rsAppt.next()) {
@@ -112,6 +112,7 @@ public class MainScreenController implements Initializable {
 
                 appointmentsList.add(new Appointment(
                         rsAppt.getInt("appointmentId"),
+                        rsAppt.getInt("customerId"),
                         rsAppt.getString("customerName"),
                         rsAppt.getString("title"),
                         rsAppt.getString("type"),
@@ -130,7 +131,7 @@ public class MainScreenController implements Initializable {
 
         viewAllAppts();
 
-        apptIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        apptIdCol.setCellValueFactory(new PropertyValueFactory<>("apptId"));
         customerCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));

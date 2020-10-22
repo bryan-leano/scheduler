@@ -5,7 +5,8 @@ import javafx.collections.ObservableList;
 
 public class Appointment {
 
-    private int id;
+    private int apptId;
+    private int custId;
     private String name;
     private String title;
     private String type;
@@ -13,9 +14,10 @@ public class Appointment {
     private String startTime;
     private String endTime;
 
-    public Appointment(int id, String name, String title, String type, String date,
+    public Appointment(int apptId, int custId, String name, String title, String type, String date,
                        String startTime, String endTime) {
-        this.id = id;
+        this.apptId = apptId;
+        this.custId = custId;
         this.name = name;
         this.title = title;
         this.type = type;
@@ -24,8 +26,12 @@ public class Appointment {
         this.endTime = endTime;
     }
 
-    public int getId() {
-        return id;
+    public int getApptId() {
+        return apptId;
+    }
+
+    public int getCustId() {
+        return custId;
     }
 
     public String getName() {
@@ -52,8 +58,12 @@ public class Appointment {
         return endTime;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setApptId(int id) {
+        this.apptId = id;
+    }
+
+    public void setCustId(int id) {
+        this.custId = id;
     }
 
     public void setName(String name) {
