@@ -80,6 +80,35 @@ public class DBQuery {
                 name, rsAddressId.getString("addressId")));
     }
 
+    public static void modifyCustomer(String id, String name, String phone, String address, String country,
+                                      String city, String zip) throws SQLException {
+        try {
+            Connection conn = DBConnection.startConnection();
+
+            conn.createStatement().executeUpdate(String.format("UPDATE customer"
+                            + " SET customerName='%s', lastUpdate='%s', lastUpdateBy='admin'"
+                            + " WHERE customerId='%s'",
+                    name, LocalDateTime.now(), id));
+
+            ResultSet rsCityId = conn.createStatement().executeQuery(
+                    String.format("SELECT cityId FROM city WHERE city = '%s'", city));
+            rsCityId.next();
+            ResultSet rsAddressId = conn.createStatement().executeQuery(
+                    String.format("SELECT addressId FROM customer WHERE customerId = '%s'", id));
+            rsAddressId.next();
+
+            conn.createStatement().executeUpdate(String.format("UPDATE address"
+                            + " SET address='%s', cityId='%s', postalCode='%s', " +
+                            "phone='%s', lastUpdate='%s', lastUpdateBy='admin' WHERE addressId='%s'",
+                    address, rsCityId.getString("cityId"), zip, phone,
+                    LocalDateTime.now(), rsAddressId.getString("addressId")));
+            System.out.println("This works");
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+    }
+
     ////ADD APPOINTMENT////
 
     public static void saveAppointment(String name, String id, String title, String type, String date,

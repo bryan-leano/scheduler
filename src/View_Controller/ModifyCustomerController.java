@@ -1,5 +1,6 @@
 package View_Controller;
 
+import Database.DBQuery;
 import Model.Customer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,10 +15,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class ModifyCustomerController implements  Initializable {
+public class ModifyCustomerController implements Initializable {
 
     Stage stage;
     Parent scene;
@@ -60,7 +62,35 @@ public class ModifyCustomerController implements  Initializable {
         } else if (countryComboBox.getValue().toString().equals("Canada")) {
             cityComboBox.setItems(canadaCities);
         }
+    }
 
+    @FXML void onActionDisplayMain(ActionEvent event) throws IOException {
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
+    }
+
+    @FXML void onActionSaveCustomer(ActionEvent event) throws IOException {
+        try{
+            String id = custIdTxt.getText();
+            String name = nameTxt.getText();
+            String phone = phoneTxt.getText();
+            String address = addressTxt.getText();
+            String country = countryComboBox.getSelectionModel().getSelectedItem().toString();
+            String city = cityComboBox.getSelectionModel().getSelectedItem().toString();
+            String zip = zipTxt.getText();
+
+            DBQuery.modifyCustomer(id, name, phone, address, country, city, zip);
+
+            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+
+        } catch (NullPointerException | SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+        }
     }
 
     @Override public void initialize(URL location, ResourceBundle resources) {
@@ -68,6 +98,16 @@ public class ModifyCustomerController implements  Initializable {
         custIdTxt.setDisable(true);
 
         countryComboBox.setItems(countries);
+
+        countryComboBox.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            if(newValue.equals("USA")) {
+                cityComboBox.setItems(usaCities);
+            } else if (newValue.equals("UK")) {
+                cityComboBox.setItems(ukCities);
+            } else if (newValue.equals("Canada")) {
+                cityComboBox.setItems(canadaCities);
+            }
+        });
 
     }
 
