@@ -62,6 +62,11 @@ public class AddCustomerController implements Initializable {
 
             DBQuery.saveCustomer(name, phone, address, country, city, zip);
 
+            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+
         } catch (NullPointerException | SQLException e) {
             System.out.println("SQLException: " + e.getMessage());
         }

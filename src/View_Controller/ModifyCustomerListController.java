@@ -1,5 +1,6 @@
 package View_Controller;
 
+import Database.DBQuery;
 import Database.DBConnection;
 import Model.Appointment;
 import Model.Customer;
@@ -53,6 +54,23 @@ public class ModifyCustomerListController implements Initializable {
         stage.setScene(new Scene(scene));
         stage.show();
     }
+
+    @FXML void onActionDeleteCustomer(ActionEvent event) throws IOException {
+        Customer deleteCustSelection = customerTableView.getSelectionModel().getSelectedItem();
+
+        try {
+            int id = deleteCustSelection.getId();
+            DBQuery.deleteCustomer(id);
+
+            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+     }
 
     @FXML void onActionDisplayMain(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();

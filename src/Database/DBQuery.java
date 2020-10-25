@@ -49,7 +49,7 @@ public class DBQuery {
         }
     }
 
-    ////ADD CUSTOMER FUNCTIONS////
+    ////CUSTOMER FUNCTIONS////
 
     public static void saveCustomer(String name, String phone, String address, String country,
                                     String city, String zip) throws SQLException {
@@ -109,7 +109,31 @@ public class DBQuery {
         }
     }
 
-    ////ADD APPOINTMENT////
+    public static void deleteCustomer(int id) {
+
+        try {
+            Connection conn = DBConnection.startConnection();
+
+            ResultSet rsAddressId = conn.createStatement().executeQuery(String.format("SELECT " +
+                    "addressId FROM customer WHERE customerId='%s'", id));
+            rsAddressId.next();
+
+            conn.createStatement().executeUpdate(String.format("DELETE FROM appointment"
+                    + " WHERE customerId='%s'", id));
+
+            conn.createStatement().executeUpdate(String.format("DELETE FROM customer"
+                    + " WHERE customerId='%s'", id));
+
+            conn.createStatement().executeUpdate(String.format("DELETE FROM address"
+                    + " WHERE addressId='%s'", rsAddressId.getString("addressId")));
+
+        } catch(SQLException e) {
+            System.out.println(" Error while deleting: " + e);
+        }
+
+    }
+
+    ////APPOINTMENT FUNCTIONS////
 
     public static void saveAppointment(String name, String id, String title, String type, String date,
                                        String startTime, String endTime) throws SQLException {

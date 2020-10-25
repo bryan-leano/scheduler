@@ -86,6 +86,8 @@ public class AddAppointmentController implements Initializable {
     @Override public void initialize(URL location, ResourceBundle resources) {
         apptIdTxt.setDisable(true);
         apptIdTxt.setText("***Auto Generated***");
+        idTxt.setDisable(true);
+        nameTxt.setDisable(true);
 
         typeComboBox.setItems(apptTypes);
         typeComboBox.getSelectionModel().selectFirst();
