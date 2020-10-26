@@ -183,6 +183,18 @@ public class DBQuery {
 
     }
 
+    public static void deleteAppointment(int id) {
+        try {
+            Connection conn = DBConnection.startConnection();
+
+            conn.createStatement().executeUpdate(String.format("DELETE FROM appointment " +
+                    "WHERE appointmentId='%s'", id));
+
+        } catch (Exception e) {
+            System.out.println(" Error while deleting: " + e);
+        }
+    }
+
     ////TIME BASED FUNCTIONS////
 
     public static LocalDateTime varLDT_UTC(String time, String date) {
@@ -193,7 +205,7 @@ public class DBQuery {
 
     public static ObservableList<String> getTimes() {
         try {
-            times.removeAll(times); 
+            times.removeAll(times);
             for (int i = 0; i < 24; i++ ) {
                 String hour;
                 if(i < 10) {

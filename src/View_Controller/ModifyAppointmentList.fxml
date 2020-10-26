@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="View_Controller.ModifyAppointmentListController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.ModifyAppointmentListController">
 
     <children>
         <VBox layoutX="11.0" layoutY="14.0" prefHeight="375.0" prefWidth="525.0">
             <children>
                 <TableView fx:id="AppointmentTableView" prefHeight="525.0" prefWidth="525.0">
                     <columns>
-                        <TableColumn fx:id="ApptIdCol" prefWidth="75.0" text="Appointment ID" />
+                        <TableColumn fx:id="ApptIdCol" prefWidth="75.0" text="Appt ID" />
                         <TableColumn fx:id="custNameCol" prefWidth="150.0" text="Customer Name" />
                         <TableColumn fx:id="titleCol" prefWidth="150.0" text="Title" />
                         <TableColumn fx:id="dateCol" prefWidth="150.0" text="Date" />
@@ -32,9 +26,14 @@
         </HBox>
         <HBox layoutX="612.0" layoutY="267.0" prefHeight="27.0" prefWidth="102.0">
             <children>
-                <Button mnemonicParsing="false" onAction="#onActionDisplayMain" text="Cancel" />
+                <Button mnemonicParsing="false" onAction="#onActionDeleteAppointment" text="Delete" />
             </children>
         </HBox>
+      <HBox layoutX="612.0" layoutY="324.0" prefHeight="27.0" prefWidth="57.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onActionDisplayMain" prefHeight="37.0" prefWidth="57.0" text="Cancel" />
+         </children>
+      </HBox>
     </children>
 
 </AnchorPane>

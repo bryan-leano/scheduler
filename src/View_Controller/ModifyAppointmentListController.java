@@ -1,6 +1,7 @@
 package View_Controller;
 
 import Database.DBConnection;
+import Database.DBQuery;
 import Model.Appointment;
 import Model.Customer;
 import javafx.collections.FXCollections;
@@ -63,6 +64,23 @@ public class ModifyAppointmentListController implements Initializable {
         Parent scene = loader.getRoot();
         stage.setScene(new Scene(scene));
         stage.show();
+    }
+
+    @FXML void onActionDeleteAppointment(ActionEvent event) throws IOException {
+        Appointment deleteApptSelection = AppointmentTableView.getSelectionModel().getSelectedItem();
+
+        try {
+            int id = deleteApptSelection.getApptId();
+            DBQuery.deleteAppointment(id);
+
+            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+
+        } catch (IOException e) {
+            System.out.println(e);
+        }
     }
 
     @FXML void onActionDisplayMain(ActionEvent event) throws IOException {
