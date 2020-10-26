@@ -77,6 +77,11 @@ public class AddAppointmentController implements Initializable {
 
             DBQuery.saveAppointment(name, id, title, type, date, startTime, endTime);
 
+            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+
         } catch (NullPointerException | SQLException e) {
             System.out.println("Error: " + e);
             System.out.println("SQLException: " + e.getMessage());

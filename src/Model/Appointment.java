@@ -46,9 +46,7 @@ public class Appointment {
         return type;
     }
 
-    public String getDate() {
-        return date;
-    }
+    public String getDate() { return date ; }
 
     public String getStartTime() {
         return startTime;

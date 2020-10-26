@@ -21,6 +21,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -63,11 +64,35 @@ public class ModifyAppointmentController implements  Initializable {
     }
 
     @FXML void onActionSaveAppointment(ActionEvent event) throws IOException {
-        System.out.println("Fix Save Button Later");
+        try {
+            String apptId = apptIdTxt.getText();
+            String custId = custIdTxt.getText();
+            String name = nameTxt.getText();
+            String title = titleTxt.getText();
+            String type = typeComboBox.getSelectionModel().getSelectedItem().toString();
+            String date = dateDatePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            String startTime = (String) startTimeComboBox.getValue().toString();
+            String endTime = (String) endTimeComboBox.getValue().toString();
+
+            DBQuery.modifyAppointment(apptId, custId, name, title, type, date, startTime, endTime);
+
+            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+
+        } catch(IOException | SQLException e) {
+            System.out.println("Error: " + e);
+            System.out.println("SQLException: " + e.getMessage());
+        }
     }
 
     @FXML void onActionSelectCust(ActionEvent event) throws IOException {
-        System.out.println("Fix Select Button Later");
+
+        Customer addApptCustomer = customerTableView.getSelectionModel().getSelectedItem();
+
+        nameTxt.setText(addApptCustomer.getName());
+        custIdTxt.setText(String.valueOf(addApptCustomer.getId()));
     }
 
     @FXML void onActionDisplayMain(ActionEvent event) throws IOException {

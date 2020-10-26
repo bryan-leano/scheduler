@@ -143,6 +143,11 @@ public class DBQuery {
         String UTCstart = localStart.toString();
         String UTCend = localEnd.toString();
 
+        System.out.println(startTime);
+        System.out.println(date);
+        System.out.println(UTCstart);
+
+
         Connection conn = DBConnection.startConnection();
         Statement stmtAddAppt = conn.createStatement();
 
@@ -153,17 +158,42 @@ public class DBQuery {
                         "NOW(), 'admin')", id, 1, title, type, UTCstart, UTCend));
     }
 
+    public static void modifyAppointment(String apptId, String custId, String name, String title,
+                                         String type, String date, String startTime,
+                                         String endTime) throws SQLException {
+        try {
+            Connection conn = DBConnection.startConnection();
+            Statement stmtModifyAppt = conn.createStatement();
+
+            LocalDateTime localStart = varLDT_UTC(startTime, date);
+            LocalDateTime localEnd = varLDT_UTC(endTime, date);
+            String UTCstart = localStart.toString();
+            String UTCend = localEnd.toString();
+
+            stmtModifyAppt.executeUpdate(String.format("UPDATE appointment "
+                            + "SET customerId='%s', userId='%s', title='%s', description='N/A', " +
+                            "location='N/A', contact='N/A', type='%s', url='N/A', start='%s', " +
+                            "end='%s', lastUpdate='%s', lastUpdateBy='admin' " +
+                            "WHERE appointmentId='%s'",
+                    custId, 1, title, type, UTCstart, UTCend, LocalDateTime.now(), apptId));
+
+        } catch(SQLException e) {
+            System.out.println("Error: " + e);
+        }
+
+    }
+
     ////TIME BASED FUNCTIONS////
 
     public static LocalDateTime varLDT_UTC(String time, String date) {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime localDT =  LocalDateTime.parse(date + " " + time, format).atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("UTC")).toLocalDateTime();
+        LocalDateTime localDT = LocalDateTime.parse(date + " " + time, format).atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("UTC")).toLocalDateTime();
         return localDT;
     }
 
     public static ObservableList<String> getTimes() {
         try {
-            times.removeAll(times); //prevents cities from copying themselves to the list
+            times.removeAll(times); 
             for (int i = 0; i < 24; i++ ) {
                 String hour;
                 if(i < 10) {

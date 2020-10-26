@@ -95,8 +95,8 @@ public class ModifyAppointmentListController implements Initializable {
                         rsAppt.getString("title"),
                         rsAppt.getString("type"),
                         rsAppt.getString("date"),
-                        zonedStartString,
-                        zonedEndString));
+                        zonedStartString + ":00",
+                        zonedEndString + ":00"));
             }
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
