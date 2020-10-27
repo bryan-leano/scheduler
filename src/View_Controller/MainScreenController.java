@@ -14,11 +14,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import jdk.nashorn.api.tree.IfTree;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -94,29 +97,98 @@ public class MainScreenController implements Initializable {
         stage.show();
     };
 
-    public void viewAllAppts() {
+    public void viewWeekAppts() {
+        appointmentTableView.getItems().clear();
 
         Connection conn;
         try {
             appointmentsList.clear();
             conn = DBConnection.startConnection();
-            ResultSet rsAppt = conn.createStatement().executeQuery("SELECT appointmentId, " +
-                    "c.customerId, customerName, title, type, DATE(start) date, " +
+            ResultSet rsWeekAppt = conn.createStatement().executeQuery(String.format("SELECT " +
+                    "appointmentId, c.customerId, customerName, title, type, DATE(start) date, " +
                     "start, end FROM customer c INNER JOIN appointment a ON " +
-                    "c.customerId = a.customerId ORDER BY start;");
-            while (rsAppt.next()) {
-                LocalDateTime zonedStart = convert.stringToLocalDateTime(rsAppt.getString("start"));
-                LocalDateTime zonedEnd = convert.stringToLocalDateTime(rsAppt.getString("end"));
+                    "c.customerId = a.customerId WHERE DATE(start) BETWEEN '%s' AND '%s' " +
+                    "ORDER BY start", LocalDate.now(), LocalDate.now().plusDays(7)));
+            while (rsWeekAppt.next()) {
+                LocalDateTime zonedStart = convert.stringToLocalDateTime(rsWeekAppt.getString("start"));
+                LocalDateTime zonedEnd = convert.stringToLocalDateTime(rsWeekAppt.getString("end"));
                 String zonedStartString = zonedStart.toString().substring(11,16);
                 String zonedEndString = zonedEnd.toString().substring(11,16);
 
                 appointmentsList.add(new Appointment(
-                        rsAppt.getInt("appointmentId"),
-                        rsAppt.getInt("customerId"),
-                        rsAppt.getString("customerName"),
-                        rsAppt.getString("title"),
-                        rsAppt.getString("type"),
-                        rsAppt.getString("date"),
+                        rsWeekAppt.getInt("appointmentId"),
+                        rsWeekAppt.getInt("customerId"),
+                        rsWeekAppt.getString("customerName"),
+                        rsWeekAppt.getString("title"),
+                        rsWeekAppt.getString("type"),
+                        rsWeekAppt.getString("date"),
+                        zonedStartString,
+                        zonedEndString));
+            }
+            appointmentTableView.setItems(appointmentsList);
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public void viewMonthAppts() {
+        appointmentTableView.getItems().clear();
+
+        Connection conn;
+        try {
+            appointmentsList.clear();
+            conn = DBConnection.startConnection();
+            ResultSet rsMonthAppt = conn.createStatement().executeQuery(String.format("SELECT " +
+                    "appointmentId, c.customerId, customerName, title, type, DATE(start) date, " +
+                    "start, end FROM customer c INNER JOIN appointment a ON " +
+                    "c.customerId = a.customerId WHERE DATE(start) BETWEEN '%s' AND '%s' " +
+                    "ORDER BY start", LocalDate.now(), LocalDate.now().plusDays(31)));
+            while (rsMonthAppt.next()) {
+                LocalDateTime zonedStart = convert.stringToLocalDateTime(rsMonthAppt.getString("start"));
+                LocalDateTime zonedEnd = convert.stringToLocalDateTime(rsMonthAppt.getString("end"));
+                String zonedStartString = zonedStart.toString().substring(11,16);
+                String zonedEndString = zonedEnd.toString().substring(11,16);
+
+                appointmentsList.add(new Appointment(
+                        rsMonthAppt.getInt("appointmentId"),
+                        rsMonthAppt.getInt("customerId"),
+                        rsMonthAppt.getString("customerName"),
+                        rsMonthAppt.getString("title"),
+                        rsMonthAppt.getString("type"),
+                        rsMonthAppt.getString("date"),
+                        zonedStartString,
+                        zonedEndString));
+            }
+            appointmentTableView.setItems(appointmentsList);
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public void viewAllAppts() {
+        appointmentTableView.getItems().clear();
+
+        Connection conn;
+        try {
+            appointmentsList.clear();
+            conn = DBConnection.startConnection();
+            ResultSet rsAllAppt = conn.createStatement().executeQuery("SELECT appointmentId, " +
+                    "c.customerId, customerName, title, type, DATE(start) date, " +
+                    "start, end FROM customer c INNER JOIN appointment a ON " +
+                    "c.customerId = a.customerId ORDER BY start;");
+            while (rsAllAppt.next()) {
+                LocalDateTime zonedStart = convert.stringToLocalDateTime(rsAllAppt.getString("start"));
+                LocalDateTime zonedEnd = convert.stringToLocalDateTime(rsAllAppt.getString("end"));
+                String zonedStartString = zonedStart.toString().substring(11,16);
+                String zonedEndString = zonedEnd.toString().substring(11,16);
+
+                appointmentsList.add(new Appointment(
+                        rsAllAppt.getInt("appointmentId"),
+                        rsAllAppt.getInt("customerId"),
+                        rsAllAppt.getString("customerName"),
+                        rsAllAppt.getString("title"),
+                        rsAllAppt.getString("type"),
+                        rsAllAppt.getString("date"),
                         zonedStartString,
                         zonedEndString));
             }
@@ -129,7 +201,20 @@ public class MainScreenController implements Initializable {
 
     @Override public void initialize(URL location, ResourceBundle resources) {
 
+        viewAllRBtn.setSelected(true);
         viewAllAppts();
+
+        viewAllRBtn.selectedProperty().addListener((options, oldValue, newValue) -> {
+            viewAllAppts();
+        });
+
+        weekRBtn.selectedProperty().addListener((options, oldValue, newValue) -> {
+            viewWeekAppts();
+        });
+
+        monthRBtn.selectedProperty().addListener((options, oldValue, newValue) -> {
+            viewMonthAppts();
+        });
 
         apptIdCol.setCellValueFactory(new PropertyValueFactory<>("apptId"));
         customerCol.setCellValueFactory(new PropertyValueFactory<>("name"));
