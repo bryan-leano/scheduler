@@ -98,7 +98,7 @@ public class ModifyCustomerListController implements Initializable {
                         rsCust.getString("phone"),
                         rsCust.getString("address"),
                         rsCust.getString("city"),
-                        rsCust.getInt("postalCode"),
+                        rsCust.getString("postalCode"),
                         rsCust.getString("country")));
             }
         } catch (SQLException e) {

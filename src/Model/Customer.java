@@ -10,10 +10,10 @@ public class Customer {
     private String address;
     private String phone;
     private String city;
-    private int zip;
+    private String zip;
     private String country;
 
-    public Customer(int id, String name, String phone, String address, String city, int zip, String country) {
+    public Customer(int id, String name, String phone, String address, String city, String zip, String country) {
         this.id = id;
         this.name = name;
         this.phone = phone;
@@ -43,7 +43,7 @@ public class Customer {
         return city;
     }
 
-    public int getZip() {
+    public String getZip() {
         return zip;
     }
 
@@ -71,7 +71,7 @@ public class Customer {
         this.city = city;
     }
 
-    public void setZip(int zip) {
+    public void setZip(String zip) {
         this.zip = zip;
     }
 
