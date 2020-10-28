@@ -78,13 +78,22 @@ public class AddAppointmentController implements Initializable {
 
             if(DBQuery.openBusinessHours(startTime, endTime, date)) {
 
-                DBQuery.saveAppointment(name, id, title, type, date, startTime, endTime);
+                if(DBQuery.apptOverlapCheck(startTime, endTime, date)) {
 
-                stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-                scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
-                stage.setScene(new Scene(scene));
-                stage.show();
+                    DBQuery.saveAppointment(name, id, title, type, date, startTime, endTime);
 
+                    stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+                    scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+                    stage.setScene(new Scene(scene));
+                    stage.show();
+
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.initModality(Modality.NONE);
+                    alert.setTitle("Invalid Appointment Time");
+                    alert.setHeaderText("This appointment conflicts with an existing appointment");
+                    alert.showAndWait();
+                }
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initModality(Modality.NONE);
