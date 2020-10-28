@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import javax.management.Query;
@@ -75,13 +76,22 @@ public class AddAppointmentController implements Initializable {
             String startTime = (String) startTimeComboBox.getValue().toString();
             String endTime = (String) endTimeComboBox.getValue().toString();
 
-            DBQuery.saveAppointment(name, id, title, type, date, startTime, endTime);
+            if(DBQuery.openBusinessHours(startTime, endTime, date)) {
 
-            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-            scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
-            stage.setScene(new Scene(scene));
-            stage.show();
+                DBQuery.saveAppointment(name, id, title, type, date, startTime, endTime);
 
+                stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+                scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+                stage.setScene(new Scene(scene));
+                stage.show();
+
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initModality(Modality.NONE);
+                alert.setTitle("Invalid Business Hours");
+                alert.setHeaderText("Hours of Operation are from 8 am to 7pm UTC");
+                alert.showAndWait();
+            }
         } catch (NullPointerException | SQLException e) {
             System.out.println("Error: " + e);
             System.out.println("SQLException: " + e.getMessage());

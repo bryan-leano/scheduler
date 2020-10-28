@@ -228,4 +228,56 @@ public class DBQuery {
         return times;
     }
 
+    public static boolean openBusinessHours(String startTime, String endTime, String date) {
+
+        //convert start and end times selected to UTC equivalents
+        LocalDateTime localStart = varLDT_UTC(startTime, date);
+        LocalDateTime localEnd = varLDT_UTC(endTime, date);
+        String UTCstart = localStart.toString().substring(11,16);
+        String UTCend = localEnd.toString().substring(11,16);
+
+        //Compare by using LocalTime datatypes
+        LocalTime enteredStart = LocalTime.parse(UTCstart);
+        LocalTime enteredEnd = LocalTime.parse(UTCend);
+        LocalTime openingHour = LocalTime.parse("07:59");
+        LocalTime closingHour = LocalTime.parse("19:01");
+        Boolean startTimeAllowed = enteredStart.isAfter(openingHour);
+        Boolean endTimeAllowed = enteredEnd.isBefore(closingHour);
+
+        if (startTimeAllowed && endTimeAllowed) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /*
+    public static boolean apptOverlapCheck(String startTime, String endTime, String date) {
+        try {
+
+            //1. Change startTime  (00:00:00) , endTime (00:00:00), and date (YYYY-MM-DD) to "YYYY-MM-DD 00:00:00"
+            LocalDateTime localStart = stringToLDT_UTC(startTime, date);
+            LocalDateTime localEnd = stringToLDT_UTC(endTime, date);
+            String UTCstart = localStart.toString();
+            String UTCend = localEnd.toString();
+
+            //3. Look for overlap
+            ResultSet getOverlap = conn.createStatement().executeQuery(String.format(
+                    "SELECT start, end, customerName FROM appointment a INNER JOIN customer c ON a.customerId=c.customerId " +
+                            "WHERE ('%s' >= start AND '%s' <= end) " +
+                            "OR ('%s' <= start AND '%s' >= end) " +
+                            "OR ('%s' <= start AND '%s' >= start) " +
+                            "OR ('%s' <= end AND '%s' >= end)",
+                    UTCstart, UTCstart, UTCend, UTCend, UTCstart, UTCend, UTCstart, UTCend));
+            getOverlap.next();
+            System.out.println("APPOINTMENT OVERLAP: " + getOverlap.getString("customerName"));
+            return false;
+        } catch (SQLException e) {
+            System.out.println("There are no appointment conflicts.");
+            return true;
+        }
+    }
+    */
+
 }
