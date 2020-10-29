@@ -1,6 +1,8 @@
 package View_Controller;
 
 import static Database.DBQuery.login;
+
+import Database.DBQuery;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -46,6 +48,9 @@ public class LoginScreenController {
             scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
             stage.setScene(new Scene(scene));
             stage.show();
+
+            DBQuery.apptFifteenNotification();
+
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initModality(Modality.NONE);

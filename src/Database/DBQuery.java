@@ -3,6 +3,8 @@ package Database;
 import Model.Customer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.stage.Modality;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -272,6 +274,34 @@ public class DBQuery {
         } catch (SQLException e) {
             return true;
         }
+    }
+
+    public static boolean apptFifteenNotification() {
+        try {
+            Connection conn = DBConnection.startConnection();
+
+            ResultSet rsApptFifteen = conn.createStatement().executeQuery(String.format("SELECT " +
+                            "customerName FROM customer c INNER JOIN appointment a ON " +
+                            "c.customerId=a.customerId WHERE a.start BETWEEN '%s' AND '%s'",
+                    LocalDateTime.now(ZoneId.of("UTC")), LocalDateTime.now(ZoneId.of("UTC")).plusMinutes(15)));
+            rsApptFifteen.next();
+
+            String custName = rsApptFifteen.getString("customerName");
+
+            if(!custName.isEmpty()) {
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initModality(Modality.NONE);
+                alert.setTitle("Upcoming Appointment!");
+                alert.setContentText("There is an appointment with " + custName + " within 15 minutes!");
+                alert.showAndWait();
+            }
+
+            return true;
+        } catch (SQLException e) {
+            return false;
+        }
+
     }
 
 }

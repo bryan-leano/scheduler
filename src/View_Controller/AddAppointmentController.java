@@ -76,6 +76,13 @@ public class AddAppointmentController implements Initializable {
             String startTime = (String) startTimeComboBox.getValue().toString();
             String endTime = (String) endTimeComboBox.getValue().toString();
 
+            DBQuery.saveAppointment(name, id, title, type, date, startTime, endTime);
+
+            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+            /*
             if(DBQuery.openBusinessHours(startTime, endTime, date)) {
 
                 if(DBQuery.apptOverlapCheck(startTime, endTime, date)) {
@@ -101,6 +108,8 @@ public class AddAppointmentController implements Initializable {
                 alert.setHeaderText("Hours of Operation are from 8 am to 7pm UTC");
                 alert.showAndWait();
             }
+
+             */
         } catch (NullPointerException | SQLException e) {
             System.out.println("Error: " + e);
             System.out.println("SQLException: " + e.getMessage());
