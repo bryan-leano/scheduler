@@ -29,12 +29,6 @@ public class Main extends Application {
 
     public static void main(String[] args) throws SQLException {
 
-        ResourceBundle rb = ResourceBundle.getBundle(".Languages/Nat", Locale.getDefault());
-
-        if(Locale.getDefault().getLanguage().equals("es") || Locale.getDefault().getLanguage().equals("en")) {
-            System.out.println(rb.getString("hello") + " " + rb.getString("World"));
-        }
-
         launch(args);
         DBConnection.closeConnection();
     }
