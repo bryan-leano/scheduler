@@ -13,6 +13,8 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class Main extends Application {
@@ -27,29 +29,11 @@ public class Main extends Application {
 
     public static void main(String[] args) throws SQLException {
 
-        /*
-        Connection conn = DBConnection.startConnection();
-        String selectStatement = "SELECT * FROM country";
+        ResourceBundle rb = ResourceBundle.getBundle(".Languages/Nat", Locale.getDefault());
 
-        DBQuery.setPreparedStatement(conn, selectStatement);
-        PreparedStatement ps = DBQuery.getPreparedStatement();
-
-        ps.execute();
-
-        ResultSet rs = ps.getResultSet();
-
-        while(rs.next()) {
-            int countryId = rs.getInt("countryId");
-            String countryName = rs.getString("country");
-            LocalDate date = rs.getDate("createDate").toLocalDate();
-            LocalTime time = rs.getTime("createDate").toLocalTime();
-            String createdBy = rs.getString("createdBy");
-            LocalDateTime lastUpdate = rs.getTimestamp("lastUpdate").toLocalDateTime();
-
-            System.out.println(countryId + " | " + countryName + " | " + date + " | " + time
-                    + " | " + createdBy + " | " + lastUpdate);
+        if(Locale.getDefault().getLanguage().equals("es") || Locale.getDefault().getLanguage().equals("en")) {
+            System.out.println(rb.getString("hello") + " " + rb.getString("World"));
         }
-        */
 
         launch(args);
         DBConnection.closeConnection();
