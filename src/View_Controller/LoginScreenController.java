@@ -14,8 +14,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -47,6 +51,14 @@ public class LoginScreenController implements Initializable {
         String passwordEntry = passwordTxt.getText();
 
         if (login(usernameEntry, passwordEntry)) {
+
+            String loginFile = "src/sample/loginLogs.txt";
+            FileWriter fileWrite = new FileWriter(loginFile, true);
+            PrintWriter outputFileWrite = new PrintWriter(fileWrite);
+            outputFileWrite.println(usernameTxt.getText() + " logged in on " + LocalDateTime.now());
+            System.out.println(usernameTxt.getText() + " logged in on " + LocalDateTime.now());
+            outputFileWrite.close();
+
             stage = (Stage)((Button)event.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
             stage.setScene(new Scene(scene));
