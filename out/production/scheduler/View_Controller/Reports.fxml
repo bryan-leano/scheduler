@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="View_Controller.ReportsController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.ReportsController">
+
+    <children>
+        <TextArea fx:id="reportsTextArea" layoutX="27.0" layoutY="146.0" prefHeight="218.0" prefWidth="544.0" />
+        <Label fx:id="reportTextAreaLabel" layoutX="27.0" layoutY="120.0" text="Result:" textFill="BLACK" underline="true">
+
+        </Label>
+        <Button fx:id="returnBtn" layoutX="27.0" layoutY="367.0" mnemonicParsing="false" onAction="#onActionDisplayMain" text="Back">
+
+        </Button>
+        <Button fx:id="generateReportBtn" layoutX="424.0" layoutY="61.0" mnemonicParsing="false" onAction="#onActionGenerate" text="Generate Report" />
+        <ChoiceBox fx:id="reportCB" layoutX="189.0" layoutY="61.0" prefHeight="27.0" prefWidth="227.0" />
+        <Label layoutX="61.0" layoutY="66.0" text="Select your report:" textFill="BLACK" />
+        <Button fx:id="resetBtn" layoutX="518.0" layoutY="367.0" mnemonicParsing="false" onAction="#onActionClear" text="Reset" textFill="BLACK" />
+      <DialogPane contentText="REPORTS" layoutX="259.0" prefHeight="57.0" prefWidth="81.0" />
+    </children>
 
 </AnchorPane>

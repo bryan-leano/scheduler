@@ -86,7 +86,6 @@ public class AddCustomerController implements Initializable {
             System.out.println("Error: " + e);
         }
 
-        /*
         try {
             String name = nameTxt.getText();
             String phone = phoneTxt.getText();
@@ -114,7 +113,6 @@ public class AddCustomerController implements Initializable {
             System.out.println("Error: " + e);
         }
 
-         */
     }
 
     @Override public void initialize(URL location, ResourceBundle resources) {

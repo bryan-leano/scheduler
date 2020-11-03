@@ -82,7 +82,7 @@ public class AddAppointmentController implements Initializable {
             scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
             stage.setScene(new Scene(scene));
             stage.show();
-            /*
+
             if(DBQuery.openBusinessHours(startTime, endTime, date)) {
 
                 if(DBQuery.apptOverlapCheck(startTime, endTime, date)) {
@@ -109,7 +109,7 @@ public class AddAppointmentController implements Initializable {
                 alert.showAndWait();
             }
 
-             */
+
         } catch (NullPointerException | SQLException e) {
             System.out.println("Error: " + e);
             System.out.println("SQLException: " + e.getMessage());
