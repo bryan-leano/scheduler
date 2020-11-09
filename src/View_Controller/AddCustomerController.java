@@ -53,39 +53,7 @@ public class AddCustomerController implements Initializable {
     }
 
     @FXML void onActionSaveCustomer(ActionEvent event) throws IOException, NullPointerException {
-
-        try {
-            String name = nameTxt.getText();
-            String phone = phoneTxt.getText();
-            String address = addressTxt.getText();
-            String country = countryComboBox.getSelectionModel().getSelectedItem().toString();
-            String city = cityComboBox.getSelectionModel().getSelectedItem().toString();
-            String zip = zipTxt.getText();
-
-            try {
-                if(!name.isEmpty() && !phone.isEmpty() && !address.isEmpty() &&
-                        !country.isEmpty() && !city.isEmpty() && !zip.isEmpty()) {
-                    DBQuery.saveCustomer(name, phone, address, country, city, zip);
-
-                    stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-                    scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
-                    stage.setScene(new Scene(scene));
-                    stage.show();
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.initModality(Modality.NONE);
-                    alert.setTitle("Missing customer info");
-                    alert.setHeaderText("Please fill out all information!");
-                    alert.showAndWait();
-                }
-            } catch(SQLException e) {
-                System.out.println("Error: " + e);
-            }
-
-        } catch(NullPointerException e) {
-            System.out.println("Error: " + e);
-        }
-
+        
         try {
             String name = nameTxt.getText();
             String phone = phoneTxt.getText();
