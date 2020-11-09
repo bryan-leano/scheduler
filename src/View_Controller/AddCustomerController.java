@@ -53,7 +53,7 @@ public class AddCustomerController implements Initializable {
     }
 
     @FXML void onActionSaveCustomer(ActionEvent event) throws IOException, NullPointerException {
-        
+
         try {
             String name = nameTxt.getText();
             String phone = phoneTxt.getText();
@@ -80,7 +80,6 @@ public class AddCustomerController implements Initializable {
         } catch(NullPointerException | SQLException e) {
             System.out.println("Error: " + e);
         }
-
     }
 
     @Override public void initialize(URL location, ResourceBundle resources) {
