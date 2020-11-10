@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
@@ -74,12 +75,31 @@ public class ModifyAppointmentController implements  Initializable {
             String startTime = (String) startTimeComboBox.getValue().toString();
             String endTime = (String) endTimeComboBox.getValue().toString();
 
-            DBQuery.modifyAppointment(apptId, custId, name, title, type, date, startTime, endTime);
+            if(DBQuery.openBusinessHours(startTime, endTime, date)) {
 
-            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-            scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
-            stage.setScene(new Scene(scene));
-            stage.show();
+                if(DBQuery.apptOverlapCheck(startTime, endTime, date)) {
+
+                    DBQuery.modifyAppointment(apptId, custId, name, title, type, date, startTime, endTime);
+
+                    stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+                    scene = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+                    stage.setScene(new Scene(scene));
+                    stage.show();
+
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.initModality(Modality.NONE);
+                    alert.setTitle("Invalid Appointment Time");
+                    alert.setHeaderText("This appointment conflicts with an existing appointment");
+                    alert.showAndWait();
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initModality(Modality.NONE);
+                alert.setTitle("Invalid Business Hours");
+                alert.setHeaderText("Hours of Operation are from 8 am to 7pm UTC");
+                alert.showAndWait();
+            }
 
         } catch(IOException | SQLException e) {
             System.out.println("Error: " + e);
