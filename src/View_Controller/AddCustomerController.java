@@ -64,6 +64,7 @@ public class AddCustomerController implements Initializable {
 
             if(!name.isEmpty() && !phone.isEmpty() && !address.isEmpty() && !country.isEmpty()
                 && !city.isEmpty() && !zip.isEmpty()) {
+                
                 DBQuery.saveCustomer(name, phone, address, country, city, zip);
 
                 stage = (Stage)((Button)event.getSource()).getScene().getWindow();
